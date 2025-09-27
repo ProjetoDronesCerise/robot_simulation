@@ -1,0 +1,3 @@
+[submodule "modules/PX4-Autopilot"]
+	path = modules/PX4-Autopilot
+	url = git@github.com:ProjetoDronesCerise/PX4-Autopilot.git
