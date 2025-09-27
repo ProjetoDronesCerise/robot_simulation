@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+	<model name="sentinel">
+		<link name="rotor_2">
+			<self_collide>false</self_collide>
+			<pose>0.1503982986873746 0.16365715160700384 0.08705362955872092 0.0 -0.0 0.0</pose>
+			<inertial>
+				<pose>0.0 0.0 0.0 0 0 0</pose>
+				<mass>0.012599261861714372</mass>
+				<inertia>
+					<ixx>3.710517661367394e-05</ixx>
+					<ixy>-4.71241762452479e-07</ixy>
+					<ixz>-5.037220426997724e-08</ixz>
+					<iyy>5.692489436758041e-07</iyy>
+					<iyz>-2.7661186432725863e-06</iyz>
+					<izz>3.710298437539752e-05</izz>
+				</inertia>
+			</inertial>
+			<collision name="rotor_2_collision">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_2.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</collision>
+			<visual name="rotor_2_visual">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_2.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</visual>
+		</link>
+		<link name="rotor_0">
+			<self_collide>false</self_collide>
+			<pose>0.15032641717958162 -0.1640004142243881 0.08611601427532098 0.0 -0.0 0.0</pose>
+			<inertial>
+				<pose>0.0 0.0 0.0 0 0 0</pose>
+				<mass>0.012599045343699182</mass>
+				<inertia>
+					<ixx>3.7115236027806376e-05</ixx>
+					<ixy>-4.730275520738126e-07</ixy>
+					<ixz>2.0849450969318007e-08</ixz>
+					<iyy>5.732334210623247e-07</iyy>
+					<iyz>2.695356367427615e-06</iyz>
+					<izz>3.710929113445207e-05</izz>
+				</inertia>
+			</inertial>
+			<collision name="rotor_0_collision">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_0.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</collision>
+			<visual name="rotor_0_visual">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_0.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</visual>
+		</link>
+		<link name="rotor_1">
+			<self_collide>false</self_collide>
+			<pose>-0.1772573180736106 0.1638770307621374 0.08611540328020391 0.0 -0.0 0.0</pose>
+			<inertial>
+				<pose>0.0 0.0 0.0 0 0 0</pose>
+				<mass>0.01259729049159208</mass>
+				<inertia>
+					<ixx>3.7126464736196497e-05</ixx>
+					<ixy>-4.7295014832311466e-07</ixy>
+					<ixz>-2.0831994630943208e-08</ixz>
+					<iyy>5.722627022076488e-07</iyy>
+					<iyz>-2.695776098262126e-06</iyz>
+					<izz>3.7120458450192296e-05</izz>
+				</inertia>
+			</inertial>
+			<collision name="rotor_1_collision">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_1.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</collision>
+			<visual name="rotor_1_visual">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_1.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</visual>
+		</link>
+		<link name="rotor_3">
+			<self_collide>false</self_collide>
+			<pose>-0.17739754261808954 -0.163654877866764 0.08705336738387981 0.0 -0.0 0.0</pose>
+			<inertial>
+				<pose>0.0 0.0 0.0 0 0 0</pose>
+				<mass>0.012599470266159322</mass>
+				<inertia>
+					<ixx>3.710348030290378e-05</ixx>
+					<ixy>-4.7025690059419034e-07</ixy>
+					<ixz>5.037731321448913e-08</ixz>
+					<iyy>5.689567322218814e-07</iyy>
+					<iyz>2.766018724464936e-06</iyz>
+					<izz>3.710140158306965e-05</izz>
+				</inertia>
+			</inertial>
+			<collision name="rotor_3_collision">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_3.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</collision>
+			<visual name="rotor_3_visual">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/rotor_3.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</visual>
+		</link>
+		<link name="base_link">
+			<self_collide>false</self_collide>
+			<pose>-0.017597526577951918 -0.0005534891021422295 0.03346192023058794 0.0 -0.0 0.0</pose>
+			<inertial>
+				<pose>0.0 0.0 0.0 0 0 0</pose>
+				<mass>3.27004900133572</mass>
+				<inertia>
+					<ixx>0.022538816895746234</ixx>
+					<ixy>-0.00017942821546897288</ixy>
+					<ixz>0.0002277434813473601</ixz>
+					<iyy>0.023099137957721515</iyy>
+					<iyz>0.00028431047364877143</iyz>
+					<izz>0.037292282992134926</izz>
+				</inertia>
+			</inertial>
+			<collision name="base_link_collision">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/base_link.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</collision>
+			<visual name="base_link_visual">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/base_link.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</visual>
+		</link>
+	</model>
+</sdf>
