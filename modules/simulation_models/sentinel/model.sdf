@@ -1,6 +1,141 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
 	<model name="sentinel">
+		<link name="base_link">
+			<self_collide>false</self_collide>
+			<pose>-0.017597526577951918 -0.0005534891021422295 0.03346192023058794 0.0 -0.0 0.0</pose>
+			<inertial>
+				<pose>0.0 0.0 0.0 0 0 0</pose>
+				<mass>1.27004900133572</mass>
+				<inertia>
+					<ixx>0.022538816895746234</ixx>
+					<ixy>-0.00017942821546897288</ixy>
+					<ixz>0.0002277434813473601</ixz>
+					<iyy>0.023099137957721515</iyy>
+					<iyz>0.00028431047364877143</iyz>
+					<izz>0.037292282992134926</izz>
+				</inertia>
+			</inertial>
+			<collision name="base_link_collision">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/base_link_collision.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+			</collision>
+			<visual name="base_link_visual">
+				<geometry>
+					<mesh>
+						<uri>model://sentinel/meshes/CAD/base_link_visual.stl</uri>
+						<scale>0.001 0.001 0.001</scale>
+					</mesh>
+				</geometry>
+
+				<material> <!-- DarkGrey-->
+          			<ambient>0.175 0.175 0.175 1.0</ambient>
+          			<diffuse>0.175 0.175 0.175 1.0</diffuse>
+          			<specular>0.175 0.175 0.175 1.0</specular>
+        		</material>
+			</visual>
+			<sensor name="air_pressure_sensor" type="air_pressure">
+				<gz_frame_id>base_link</gz_frame_id>
+				<always_on>1</always_on>
+				<update_rate>50</update_rate>
+				<air_pressure>
+				<!-- Noise modeled after BMP390 -->
+				<pressure>
+					<noise type="gaussian">
+					<mean>0</mean>
+					<stddev>3</stddev>
+					</noise>
+				</pressure>
+				</air_pressure>
+			</sensor>
+			<sensor name="magnetometer_sensor" type="magnetometer">
+				<gz_frame_id>base_link</gz_frame_id>
+				<always_on>1</always_on>
+				<update_rate>100</update_rate>
+				<magnetometer>
+				<!-- TODO: update to fix units and coordinate system when we move past Harmonic -->
+				<!-- See https://github.com/gazebosim/gz-sim/pull/2460 -->
+				<!-- 3mgauss RMS: NOTE: noise is in tesla but sensor reports data in gauss -->
+				<!-- Noise modeled after IIS2MDC -->
+				<x>
+					<noise type="gaussian">
+					<stddev>0.0001</stddev>
+					</noise>
+				</x>
+				<y>
+					<noise type="gaussian">
+					<stddev>0.0001</stddev>
+					</noise>
+				</y>
+				<z>
+					<noise type="gaussian">
+					<stddev>0.0001</stddev>
+					</noise>
+				</z>
+				</magnetometer>
+			</sensor>
+			<sensor name="imu_sensor" type="imu">
+				<gz_frame_id>base_link</gz_frame_id>
+				<always_on>1</always_on>
+				<update_rate>250</update_rate>
+				<imu>
+				<angular_velocity>
+					<!-- Noise modeled after IIM42653 -->
+					<!-- 0.05 deg/s converted to rad/s -->
+					<x>
+					<noise type="gaussian">
+						<mean>0.0</mean>
+						<stddev>0.0008726646</stddev>
+					</noise>
+					</x>
+					<y>
+					<noise type="gaussian">
+						<mean>0.0</mean>
+						<stddev>0.0008726646</stddev>
+					</noise>
+					</y>
+					<z>
+					<noise type="gaussian">
+						<mean>0.0</mean>
+						<stddev>0.0008726646</stddev>
+					</noise>
+					</z>
+				</angular_velocity>
+				<linear_acceleration>
+					<!-- Noise modeled after IIM42653 -->
+					<!-- X & Y axis: 0.65 mg-rms converted to m/ss -->
+					<x>
+					<noise type="gaussian">
+						<mean>0.0</mean>
+						<stddev>0.00637</stddev>
+					</noise>
+					</x>
+					<y>
+					<noise type="gaussian">
+						<mean>0.0</mean>
+						<stddev>0.00637</stddev>
+					</noise>
+					</y>
+					<!-- Z axis: 0.70 mg-rms converted to m/ss-->
+					<z>
+					<noise type="gaussian">
+						<mean>0.0</mean>
+						<stddev>0.00686</stddev>
+					</noise>
+					</z>
+				</linear_acceleration>
+				</imu>
+			</sensor>
+			<sensor name="navsat_sensor" type="navsat">
+				<gz_frame_id>base_link</gz_frame_id>
+				<always_on>1</always_on>
+				<update_rate>30</update_rate>
+			</sensor>
+		</link>
 		<link name="rotor_2">
 			<self_collide>false</self_collide>
 			<pose>0.1503982986873746 0.16365715160700384 0.08705362955872092 0.0 -0.0 0.0</pose>
@@ -19,7 +154,7 @@
 			<collision name="rotor_2_collision">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_2.stl</uri>
+						<uri>model://sentinel/meshes/CAD/propeller_simplified.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
@@ -27,10 +162,16 @@
 			<visual name="rotor_2_visual">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_2.stl</uri>
+						<uri>model://sentinel/meshes/CAD/rotor_2_visual.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
+
+				<material>
+					<ambient>0.694 0.071 0.071 1.0</ambient> <!-- Vermelho (#B21613) -->
+					<diffuse>0.694 0.071 0.071 1.0</diffuse>
+					<specular>0.5 0.5 0.5 1.0</specular>
+				</material>
 			</visual>
 		</link>
 		<link name="rotor_0">
@@ -51,7 +192,7 @@
 			<collision name="rotor_0_collision">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_0.stl</uri>
+						<uri>model://sentinel/meshes/CAD/propeller_simplified.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
@@ -59,10 +200,16 @@
 			<visual name="rotor_0_visual">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_0.stl</uri>
+						<uri>model://sentinel/meshes/CAD/rotor_0_visual.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
+
+				<material>
+					<ambient>0.694 0.071 0.071 1.0</ambient> <!-- Vermelho (#B21613) -->
+					<diffuse>0.694 0.071 0.071 1.0</diffuse>
+					<specular>0.5 0.5 0.5 1.0</specular>
+				</material>
 			</visual>
 		</link>
 		<link name="rotor_1">
@@ -83,7 +230,7 @@
 			<collision name="rotor_1_collision">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_1.stl</uri>
+						<uri>model://sentinel/meshes/CAD/propeller_simplified.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
@@ -91,10 +238,16 @@
 			<visual name="rotor_1_visual">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_1.stl</uri>
+						<uri>model://sentinel/meshes/CAD/rotor_1_visual.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
+
+				<material>
+					<ambient>0.01 0.01 0.01 1.0</ambient> <!-- Preto -->
+					<diffuse>0.01 0.01 0.01 1.0</diffuse>
+					<specular>0.5 0.5 0.5 1.0</specular>
+				</material>
 			</visual>
 		</link>
 		<link name="rotor_3">
@@ -115,7 +268,7 @@
 			<collision name="rotor_3_collision">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_3.stl</uri>
+						<uri>model://sentinel/meshes/CAD/propeller_simplified.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
@@ -123,43 +276,139 @@
 			<visual name="rotor_3_visual">
 				<geometry>
 					<mesh>
-						<uri>model://sentinel/meshes/CAD/rotor_3.stl</uri>
+						<uri>model://sentinel/meshes/CAD/rotor_3_visual.stl</uri>
 						<scale>0.001 0.001 0.001</scale>
 					</mesh>
 				</geometry>
+
+				<material>
+					<ambient>0.01 0.01 0.01 1.0</ambient> <!-- Preto -->
+					<diffuse>0.01 0.01 0.01 1.0</diffuse>
+					<specular>0.5 0.5 0.5 1.0</specular>
+				</material>
 			</visual>
 		</link>
-		<link name="base_link">
-			<self_collide>false</self_collide>
-			<pose>-0.017597526577951918 -0.0005534891021422295 0.03346192023058794 0.0 -0.0 0.0</pose>
-			<inertial>
-				<pose>0.0 0.0 0.0 0 0 0</pose>
-				<mass>3.27004900133572</mass>
-				<inertia>
-					<ixx>0.022538816895746234</ixx>
-					<ixy>-0.00017942821546897288</ixy>
-					<ixz>0.0002277434813473601</ixz>
-					<iyy>0.023099137957721515</iyy>
-					<iyz>0.00028431047364877143</iyz>
-					<izz>0.037292282992134926</izz>
-				</inertia>
-			</inertial>
-			<collision name="base_link_collision">
-				<geometry>
-					<mesh>
-						<uri>model://sentinel/meshes/CAD/base_link.stl</uri>
-						<scale>0.001 0.001 0.001</scale>
-					</mesh>
-				</geometry>
-			</collision>
-			<visual name="base_link_visual">
-				<geometry>
-					<mesh>
-						<uri>model://sentinel/meshes/CAD/base_link.stl</uri>
-						<scale>0.001 0.001 0.001</scale>
-					</mesh>
-				</geometry>
-			</visual>
-		</link>
+		<joint name="rotor_3_joint" type="revolute">
+			<parent>base_link</parent>
+			<child>rotor_3</child>
+			<pose>-0.00045014975726196836 -0.0004572316552014755 -0.006043517306213424 0 0 0</pose>
+			<axis>
+				<xyz>0.07391278520357714 0.07391278520356573 0.994521895368273</xyz>
+				<limit>
+					<lower>-1e+16</lower>
+					<upper>1e+16</upper>
+				</limit>
+				<use_parent_model_frame>0</use_parent_model_frame>
+			</axis>
+		</joint>
+		<joint name="rotor_2_joint" type="revolute">
+			<parent>base_link</parent>
+			<child>rotor_2</child>
+			<pose>0.0004493936879570626 0.0004549579148710592 -0.006043779481262668 0 0 0</pose>
+			<axis>
+				<xyz>-0.07391278520357761 -0.07391278520354513 0.9945218953682744</xyz>
+				<limit>
+					<lower>-1e+16</lower>
+					<upper>1e+16</upper>
+				</limit>
+				<use_parent_model_frame>0</use_parent_model_frame>
+			</axis>
+		</joint>
+		<joint name="rotor_0_joint" type="revolute">
+			<parent>base_link</parent>
+			<child>rotor_0</child>
+			<pose>0.0003798538397960094 -0.0003714707923870009 -0.005106164197655492 0 0 0</pose>
+			<axis>
+				<xyz>-0.07391278520355592 0.07391278520358698 0.994521895368273</xyz>
+				<limit>
+					<lower>-1e+16</lower>
+					<upper>1e+16</upper>
+				</limit>
+				<use_parent_model_frame>0</use_parent_model_frame>
+			</axis>
+		</joint>
+		<joint name="rotor_1_joint" type="revolute">
+			<parent>base_link</parent>
+			<child>rotor_1</child>
+			<pose>-0.0003789840904079256 0.00037650011598913127 -0.005105553202744737 0 0 0</pose>
+			<axis>
+				<xyz>0.07391278520355536 -0.07391278520356737 0.9945218953682744</xyz>
+				<limit>
+					<lower>-1e+16</lower>
+					<upper>1e+16</upper>
+				</limit>
+				<use_parent_model_frame>0</use_parent_model_frame>
+			</axis>
+		</joint>
+
+
+	<plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_0_joint</jointName>
+      <linkName>rotor_0</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>0</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_1_joint</jointName>
+      <linkName>rotor_1</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>1</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_2_joint</jointName>
+      <linkName>rotor_2</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_3_joint</jointName>
+      <linkName>rotor_3</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>3</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
 	</model>
 </sdf>
