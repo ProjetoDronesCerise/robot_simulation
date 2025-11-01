@@ -1,3 +1,6 @@
 [submodule "modules/gazebo_models_worlds_collection"]
 	path = modules/gazebo_models_worlds_collection
 	url = https://github.com/leonhartyao/gazebo_models_worlds_collection.git
+[submodule "modules/PX4-Autopilot"]
+	path = modules/PX4-Autopilot
+	url = https://github.com/PX4/PX4-Autopilot.git
